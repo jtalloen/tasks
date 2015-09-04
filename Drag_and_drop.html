@@ -1,0 +1,94 @@
+<html>
+<head>
+<style type="text/css">
+#Seed {
+background: url('https://farm3.staticflickr.com/2796/4083582112_f13870f7bc.jpg');
+background-position: center;
+width:350px; 
+height:250px; 
+font-size:18px;
+text-align: right;
+position: absolute;
+left: 60px;
+top: 350px;
+}
+#Dirt {
+background: url('https://www.mediabistro.com/fishbowldc/files/2010/10/dirt-pile.jpg'); 
+background-position: center;
+width:450px; 
+height:200px;
+padding:8px;
+font-size:18px;
+text-align:right; 
+}
+</style>
+<script type="text/javascript" src="jquery".js></script>
+<script type="text/javascript">
+
+var isPlanted = false;
+function appStatus(msg){
+    document.getElementById('app_status').innerHTML = msg;
+}
+// "e" represents the drag event in question for each drag function
+var count1=0;
+do{
+    function drag_start(e) {
+        appStatus("Dragging the "+e.target.getAttribute('id'));
+        e.dataTransfer.dropEffect='move';
+        e.dataTransfer.setData("text/plain", e.target.getAttribute('id'));
+    }
+    function drag_enter(e) {
+        appStatus("You are dragging the "+element+" over the "+e.target.getAttribute('id'));
+    }
+    function drag_leave(e) {
+        appStatus("You left the "+e.target.getAttribute('id'));
+    }
+    function drag_drop(e) {
+        e.preventDefault();
+        var element = e.dataTransfer.getData("Text");
+        appStatus("Dropped "+element+" into the "+e.target.getAttribute('id'));
+        e.target.appendChild(document.getElementById(element));
+        isPlanted = true;
+    }
+    function drag_end(e) {
+        var status = document.getElementById('app_status');
+        if(isPlanted == false){
+        appStatus("You let the "+e.target.getAttribute('id')+" go.");
+        }
+        if(isPlanted == true){
+            count1++;
+            alert("You have planted " + count1 + " tree(s)");
+            isPlanted=false;
+        }
+}
+}while(count>0)
+</script>
+</head>
+<body>
+<h2>Come help us plant some trees!</h2>
+<h3 id="app_status">Seed ready to be planted...</h3>
+<div id="Dirt" ondragenter="drag_enter(event)" ondrop="drag_drop(event)" ondragover="return false" ondragleave="drag_leave(event)" >
+Dirt
+</div>
+<hr />
+<div id="Seed" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">
+Seed
+</div>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</body>
+</html>

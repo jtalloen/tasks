@@ -1,0 +1,541 @@
+<html>
+ <H1 id="H1">Please encrypt these letters</H1>
+
+ <header>
+  <style type="text/css">
+   table, th, td{
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    text-align: center;
+   }
+
+
+
+   td {
+    padding: 5px;
+    width :40px;
+   }
+   #H1{
+    text-align:center;
+   }
+   input{
+    width: 40px;
+   }
+
+   #check{
+    width: 80px;
+   }
+   #layer{
+    background-color: black;
+    position: absolute;
+    height:300px;
+    width:500px;
+    left: 30%;
+    top:200px;
+    visibility: hidden;
+    z-index: 1;
+   }
+
+   #layer1{
+    background-color: black;
+    position: absolute;
+    height:300px;
+    width:500px;
+    left: 30%;
+    top:200px;
+    visibility: hidden;
+    z-index: 2;
+   }
+
+   #msg{
+    color: white;
+    position: absolute;
+    top: 60px;
+    left: 20%;
+    font-weight: thick;
+    text-align: center;
+   }
+   
+   #msg1{
+    color: white;
+    position: absolute;
+    top: 75px;
+    left: 20%;
+    font-weight: thick;
+    text-align: center;
+   }
+
+   #button1{
+    position: absolute;
+    top: 70%;
+    left: 35%;
+    width: 150px;
+   }
+   #NextButton{
+   width: 72px;
+   }
+  </style>
+  <p> Use the key below to encrypt the letters given below: </p>
+
+  <table id="table1">
+   <tr id="row">
+    <td>A</td>
+    <td>B</td>
+    <td>C</td>
+    <td>D</td>
+    <td>E</td>
+    <td>F</td>
+    <td>G</td>
+    <td>H</td>
+    <td>I</td>
+    <td>J</td>
+    <td>K</td>
+    <td>L</td>
+    <td>M</td>
+    <td>N</td>
+    <td>O</td>
+    <td>P</td>
+    <td>Q</td>
+    <td>R</td>
+    <td>S</td>
+    <td>T</td>
+    <td>U</td>
+    <td>V</td>
+    <td>W</td>
+    <td>X</td>
+    <td>Y</td>
+    <td>Z</td>
+   </tr>
+   <tr>
+    <td id="kA"></td>
+    <td id="kB"></td>
+    <td id="kC"></td>
+    <td id="kD"></td>
+    <td id="kE"></td>     
+    <td id="kF"></td>
+    <td id="kG"></td>
+    <td id="kH"></td>
+    <td id="kI"></td>
+    <td id="kJ"></td>
+    <td id="kK"></td>
+    <td id="kL"></td>
+    <td id="kM"></td>
+    <td id="kN"></td>
+    <td id="kO"></td>
+    <td id="kP"></td>
+    <td id="kQ"></td>
+    <td id="kR"></td>
+    <td id="kS"></td>
+    <td id="kT"></td>
+    <td id="kU"></td>
+    <td id="kV"></td>
+    <td id="kW"></td>
+    <td id="kX"></td>
+    <td id="kY"></td>
+    <td id="kZ"></td> 
+
+   </tr>
+  </table>
+
+  <p> Here are the letters that you have to encrypt:</p>
+
+  <table id="table2">
+   <tr>
+    <td id="td1"></td>
+    <td id="td2"></td>
+    <td id="td3"></td>
+    <td id="td4"></td>
+    <td id="td5"></td>
+   </tr>
+  </table>
+
+  <p> Enter your answers below:</p>
+
+  <table id="table3">
+   <tr>
+    <td><input type="number" min="0" max="99" id="number1" required="required"></td>
+    <td><input type="number" min="0" max="99" id="number2" required="required"></td>
+    <td><input type="number" min="0" max="99" id="number3" required="required"></td>
+    <td><input type="number" min="0" max="99" id="number4" required="required"></td>
+    <td><input type="number" min="0" max="99" id="number5" required="required"></td>
+   </tr>
+  </table>
+
+  <p> Press the check button to move onto the next round.</p>
+  <input type="button" value="Check" onclick="val();" id="check"/> 
+
+  <div id="layer">
+   <p id="msg"></p>
+   <input type="button" value="Next word" onclick="loop();" id="button1"/>
+  </div>
+  <div id="layer1">
+   <p id="msg1"></p>
+
+  </div>
+ </header>
+ <body>
+  <script type="text/javascript">
+   
+
+   // assigning letters
+   // use the following link to find 5 letter words:
+   // http://wordfinder.yourdictionary.com/letter-words/5
+
+   // counting the number of times they have run through it
+
+   var jt=0; 
+   var cp=10;
+   // creating random characters in 5 letters they have to encode
+
+   document.getElementById("td1").innerHTML = String.fromCharCode(97 + (Math.floor(Math.random()*25))).toUpperCase();
+   
+   document.getElementById("td2").innerHTML = String.fromCharCode(97 + (Math.floor(Math.random()*25))).toUpperCase();
+
+   document.getElementById("td3").innerHTML = String.fromCharCode(97 + (Math.floor(Math.random()*25))).toUpperCase();
+
+   document.getElementById("td4").innerHTML = String.fromCharCode(97 + (Math.floor(Math.random()*25))).toUpperCase();
+
+   document.getElementById("td5").innerHTML = String.fromCharCode(97 + (Math.floor(Math.random()*25))).toUpperCase();        
+   
+   // Now we randomize the numbers in the key
+   
+   nA = document.getElementById("kA").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nB = document.getElementById("kB").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nC = document.getElementById("kC").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nD = document.getElementById("kD").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nE = document.getElementById("kE").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nF = document.getElementById("kF").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nG = document.getElementById("kG").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nH = document.getElementById("kH").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nI = document.getElementById("kI").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nJ = document.getElementById("kJ").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nK = document.getElementById("kK").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nL = document.getElementById("kL").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nM = document.getElementById("kM").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nN = document.getElementById("kN").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nO = document.getElementById("kO").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nP = document.getElementById("kP").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nQ = document.getElementById("kQ").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nR = document.getElementById("kR").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nS = document.getElementById("kS").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nT = document.getElementById("kT").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nU = document.getElementById("kU").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nV = document.getElementById("kV").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nW = document.getElementById("kW").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nX = document.getElementById("kX").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nY = document.getElementById("kY").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+   nZ = document.getElementById("kZ").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+
+
+            n1 = document.getElementById("number1").value = "0";
+            n2 = document.getElementById("number2").value = "0";
+            n3 = document.getElementById("number3").value = "0";
+            n4 = document.getElementById("number4").value = "0";
+            n5 = document.getElementById("number5").value = "0";  
+
+
+   // validating their entries
+   // triggered by check button
+
+
+   function val(){
+     document.getElementById("layer").style.visibility ="visible";
+
+     c1 = document.getElementById("td1").innerHTML;
+     c2 = document.getElementById("td2").innerHTML;
+     c3 = document.getElementById("td3").innerHTML;
+     c4 = document.getElementById("td4").innerHTML;
+     c5 = document.getElementById("td5").innerHTML;
+ 
+     n1 = document.getElementById("number1").value;
+     n2 = document.getElementById("number2").value;
+     n3 = document.getElementById("number3").value;
+     n4 = document.getElementById("number4").value;
+     n5 = document.getElementById("number5").value;
+
+     // code that works without a loop but very tedious
+
+     if((c1 == "A" && n1 == nA) ||
+      (c1 == "B" && n1 == nB) ||
+      (c1 == "C" && n1 == nC) ||
+      (c1 == "D" && n1 == nD) ||
+      (c1 == "E" && n1 == nE) ||
+      (c1 == "F" && n1 == nF) ||
+      (c1 == "G" && n1 == nG) ||
+      (c1 == "H" && n1 == nH) ||
+      (c1 == "I" && n1 == nI) ||
+      (c1 == "J" && n1 == nJ) ||
+      (c1 == "K" && n1 == nK) ||
+      (c1 == "L" && n1 == nL) ||
+      (c1 == "M" && n1 == nM) ||
+      (c1 == "N" && n1 == nN) ||
+      (c1 == "O" && n1 == nO) ||
+      (c1 == "P" && n1 == nP) ||
+      (c1 == "Q" && n1 == nQ) ||
+      (c1 == "R" && n1 == nR) ||
+      (c1 == "S" && n1 == nS) ||
+      (c1 == "T" && n1 == nT) ||
+      (c1 == "U" && n1 == nU) ||
+      (c1 == "V" && n1 == nV) ||
+      (c1 == "W" && n1 == nW) ||
+      (c1 == "X" && n1 == nX) ||
+      (c1 == "Y" && n1 == nY) ||
+      (c1 == "Z" && n1 == nZ)
+      ){      
+       if((c2 == "A" && n2 == nA) ||
+       (c2 == "B" && n2 == nB) ||
+       (c2 == "C" && n2 == nC) ||
+       (c2 == "D" && n2 == nD) ||
+       (c2 == "E" && n2 == nE) ||
+       (c2 == "F" && n2 == nF) ||
+       (c2 == "G" && n2 == nG) ||
+       (c2 == "H" && n2 == nH) ||
+       (c2 == "I" && n2 == nI) ||
+       (c2 == "J" && n2 == nJ) ||
+       (c2 == "K" && n2 == nK) ||
+       (c2 == "L" && n2 == nL) ||
+       (c2 == "M" && n2 == nM) ||
+       (c2 == "N" && n2 == nN) ||
+       (c2 == "O" && n2 == nO) ||
+       (c2 == "P" && n2 == nP) ||
+       (c2 == "Q" && n2 == nQ) ||
+       (c2 == "R" && n2 == nR) ||
+       (c2 == "S" && n2 == nS) ||
+       (c2 == "T" && n2 == nT) ||
+       (c2 == "U" && n2 == nU) ||
+       (c2 == "V" && n2 == nV) ||
+       (c2 == "W" && n2 == nW) ||
+       (c2 == "X" && n2 == nX) ||
+       (c2 == "Y" && n2 == nY) ||
+       (c2 == "Z" && n2 == nZ)
+       ){
+        if((c3 == "A" && n3 == nA) ||
+        (c3 == "B" && n3 == nB) ||
+        (c3 == "C" && n3 == nC) ||
+        (c3 == "D" && n3 == nD) ||
+        (c3 == "E" && n3 == nE) ||
+        (c3 == "F" && n3 == nF) ||
+        (c3 == "G" && n3 == nG) ||
+        (c3 == "H" && n3 == nH) ||
+        (c3 == "I" && n3 == nI) ||
+        (c3 == "J" && n3 == nJ) ||
+        (c3 == "K" && n3 == nK) ||
+        (c3 == "L" && n3 == nL) ||
+        (c3 == "M" && n3 == nM) ||
+        (c3 == "N" && n3 == nN) ||
+        (c3 == "O" && n3 == nO) ||
+        (c3 == "P" && n3 == nP) ||
+        (c3 == "Q" && n3 == nQ) ||
+        (c3 == "R" && n3 == nR) ||
+        (c3 == "S" && n3 == nS) ||
+        (c3 == "T" && n3 == nT) ||
+        (c3 == "U" && n3 == nU) ||
+        (c3 == "V" && n3 == nV) ||
+        (c3 == "W" && n3 == nW) ||
+        (c3 == "X" && n3 == nX) ||
+        (c3 == "Y" && n3 == nY) ||
+        (c3 == "Z" && n3 == nZ)
+        ){
+         if((c4 == "A" && n4 == nA) ||
+         (c4 == "B" && n4 == nB) ||
+         (c4 == "C" && n4 == nC) ||
+         (c4 == "D" && n4 == nD) ||
+         (c4 == "E" && n4 == nE) ||
+         (c4 == "F" && n4 == nF) ||
+         (c4 == "G" && n4 == nG) ||
+         (c4 == "H" && n4 == nH) ||
+         (c4 == "I" && n4 == nI) ||
+         (c4 == "J" && n4 == nJ) ||
+         (c4 == "K" && n4 == nK) ||
+         (c4 == "L" && n4 == nL) ||
+         (c4 == "M" && n4 == nM) ||
+         (c4 == "N" && n4 == nN) ||
+         (c4 == "O" && n4 == nO) ||
+         (c4 == "P" && n4 == nP) ||
+         (c4 == "Q" && n4 == nQ) ||
+         (c4 == "R" && n4 == nR) ||
+         (c4 == "S" && n4 == nS) ||
+         (c4 == "T" && n4 == nT) ||
+         (c4 == "U" && n4 == nU) ||
+         (c4 == "V" && n4 == nV) ||
+         (c4 == "W" && n4 == nW) ||
+         (c4 == "X" && n4 == nX) ||
+         (c4 == "Y" && n4 == nY) ||
+         (c4 == "Z" && n4 == nZ)
+         ) {
+          if((c5 == "A" && n5 == nA) ||
+          (c5 == "B" && n5 == nB) ||
+          (c5 == "C" && n5 == nC) ||
+          (c5 == "D" && n5 == nD) ||
+          (c5 == "E" && n5 == nE) ||
+          (c5 == "F" && n5 == nF) ||
+          (c5 == "G" && n5 == nG) ||
+          (c5 == "H" && n5 == nH) ||
+          (c5 == "I" && n5 == nI) ||
+          (c5 == "J" && n5 == nJ) ||
+          (c5 == "K" && n5 == nK) ||
+          (c5 == "L" && n5 == nL) ||
+          (c5 == "M" && n5 == nM) ||
+          (c5 == "N" && n5 == nN) ||
+          (c5 == "O" && n5 == nO) ||
+          (c5 == "P" && n5 == nP) ||
+          (c5 == "Q" && n5 == nQ) ||
+          (c5 == "R" && n5 == nR) ||
+          (c5 == "S" && n5 == nS) ||
+          (c5 == "T" && n5 == nT) ||
+          (c5 == "U" && n5 == nU) ||
+          (c5 == "V" && n5 == nV) ||
+          (c5 == "W" && n5 == nW) ||
+          (c5 == "X" && n5 == nX) ||
+          (c5 == "Y" && n5 == nY) ||
+          (c5 == "Z" && n5 == nZ)
+           ){
+            jt++;
+     
+            document.getElementById("msg").innerHTML = "You entered the right numbers! You have <br> completed " + jt + " rounds. <br> You have to complete " + cp + " rounds";
+                    
+   // run this again so that every time they check they get new letters
+
+            document.getElementById("td1").innerHTML = String.fromCharCode(97 + (Math.floor(Math.random()*25))).toUpperCase();
+            
+            document.getElementById("td2").innerHTML = String.fromCharCode(97 + (Math.floor(Math.random()*25))).toUpperCase();
+
+            document.getElementById("td3").innerHTML = String.fromCharCode(97 + (Math.floor(Math.random()*25))).toUpperCase();
+
+            document.getElementById("td4").innerHTML = String.fromCharCode(97 + (Math.floor(Math.random()*25))).toUpperCase();
+
+            document.getElementById("td5").innerHTML = String.fromCharCode(97 + (Math.floor(Math.random()*25))).toUpperCase(); 
+
+            // reset their entries
+
+            n1 = document.getElementById("number1").value = "0";
+            n2 = document.getElementById("number2").value = "0";
+            n3 = document.getElementById("number3").value = "0";
+            n4 = document.getElementById("number4").value = "0";
+            n5 = document.getElementById("number5").value = "0";  
+         
+
+
+            // reset the key
+            nA = document.getElementById("kA").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nB = document.getElementById("kB").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nC = document.getElementById("kC").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nD = document.getElementById("kD").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nE = document.getElementById("kE").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nF = document.getElementById("kF").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nG = document.getElementById("kG").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nH = document.getElementById("kH").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nI = document.getElementById("kI").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nJ = document.getElementById("kJ").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nK = document.getElementById("kK").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nL = document.getElementById("kL").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nM = document.getElementById("kM").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nN = document.getElementById("kN").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nO = document.getElementById("kO").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nP = document.getElementById("kP").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nQ = document.getElementById("kQ").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nR = document.getElementById("kR").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nS = document.getElementById("kS").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nT = document.getElementById("kT").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nU = document.getElementById("kU").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nV = document.getElementById("kV").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nW = document.getElementById("kW").innerHTML = Math.floor(Math.random()*(100-0))+0;  
+
+            nX = document.getElementById("kX").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nY = document.getElementById("kY").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+
+            nZ = document.getElementById("kZ").innerHTML = Math.floor(Math.random()*(100-0))+0; 
+            
+          } else{
+          document.getElementById("msg").innerHTML = "You entered the wrong numbers, try again!";          
+          }
+         } else{
+         document.getElementById("msg").innerHTML = "You entered the wrong numbers, try again!";
+         }
+        } else{
+        document.getElementById("msg").innerHTML = "You entered the wrong numbers, try again!";
+        }
+       }else{
+       document.getElementById("msg").innerHTML = "You entered the wrong numbers, try again!";
+       }  
+      }else{
+       document.getElementById("msg").innerHTML = "You entered the wrong numbers, try again!";
+      } 
+
+   }
+
+
+
+
+   // Loop words by count
+   // triggered by next word button
+
+   function loop(){
+
+    if(jt >= cp){
+      document.getElementById("layer").style.visibility ="hidden";     
+      document.getElementById("layer1").style.visibility ="visible"; 
+      document.getElementById('NextButton').show();
+      document.getElementById("msg1").innerHTML = "You have completed " + jt + " rounds.  You are done! <br> Please click the '>>' button to advance.";
+      document.getElementById('NextButton').disabled = false;
+    } else {
+      document.getElementById("layer").style.visibility ="hidden";    
+    }
+  
+   } 
+
+
+  </script>
+
+ </body>
+</html>

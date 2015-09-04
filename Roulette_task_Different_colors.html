@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style type="text/css">
+   #layer{
+    background-color: black;
+    position: absolute;
+    height:300px;
+    width:500px;
+    left: 30%;
+    top:50px;
+    visibility: hidden;
+    z-index: 1;
+   }
+
+   #msg{
+    color: white;
+    position: absolute;
+    top: 60px;
+    left: 20%;
+    font-weight: thick;
+    text-align: center;
+   }
+   </style> 
+<script>
+
+var startAngle = 0;  // global variable that stores the current starting angle
+var step = 0.05; // by how many degrees to rotate the wheel at each frame
+var stepMin = 0.04; 
+var stepMax = 0.08;
+var redrawInterval = 50; // we draw the next "frame" every x ms
+var animationLength = 10000; // the animation will run for x ms
+var animationLengthMin = 5000;
+var animationLengthMax = 12000;
+
+function drawWheel() {
+
+  var colora = "black";
+  var colorb = "red";
+  
+  var colors = [colora, colorb, colora, colorb,
+  colora, colorb, colora, colorb,
+  colora, colorb, colora, colorb];
+    
+  var outsideRadius = 200;
+  var insideRadius = 125;
+  
+  var arc = Math.PI / 6;
+  
+  var spinArcStart = 10;
+  var spinTimeout = null;
+  var spinTime = 0;
+  var spinTimeTotal = 0;
+
+  var c = document.getElementById("myCanvas");
+  var ctx = c.getContext("2d");
+
+  ctx.clearRect(0,0,500,500);
+
+  ctx.beginPath();
+  ctx.arc(250,250,150,0,2*Math.PI);
+  ctx.strokeStyle = "black";
+
+  for(var i = 0; i < 12; i++) {
+    var angle = startAngle + i * arc;
+    ctx.fillStyle = colors[i];
+      
+    ctx.beginPath();
+    ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
+    ctx.arc(250, 250, insideRadius, angle + arc, angle, true);
+    ctx.stroke();
+    ctx.fill();
+    //ctx.restore();
+    //ctx.save();
+  } 
+
+  //Arrow
+  ctx.fillStyle = "#246404";
+  ctx.beginPath();
+  ctx.moveTo(250 - 8, 250 - (outsideRadius + 15));
+  ctx.lineTo(250 + 8, 250 - (outsideRadius + 15));
+  ctx.lineTo(250 + 8, 250 - (outsideRadius - 5));
+  ctx.lineTo(250 + 16, 250 - (outsideRadius - 5));
+  ctx.lineTo(250 + 0, 250 - (outsideRadius - 16));
+  ctx.lineTo(250 - 16, 250 - (outsideRadius - 5));
+  ctx.lineTo(250 - 8, 250 - (outsideRadius - 5));
+  ctx.lineTo(250 - 8, 250 - (outsideRadius + 5));
+  ctx.fill();
+  //ctx.save();
+}
+
+function rotateWheel() {
+  drawWheel(startAngle);
+  outputResult(startAngle);
+  startAngle += step;
+}
+
+function spin()
+{
+  var timer = setInterval(rotateWheel, redrawInterval);
+
+  setTimeout(stopWheel, animationLength, timer);
+}
+
+var count=0;
+
+function spinRandom()
+{
+  // update animationLength and step size (which controls speed) with randomly generated values
+  count++;
+  if(count<2){
+    animationLength = animationLengthMin + Math.random()*(animationLengthMax - animationLengthMin);
+    step = stepMin + Math.random()*(stepMax - stepMin);
+
+
+  var timer = setInterval(rotateWheel, redrawInterval);
+
+  setTimeout(stopWheel, animationLength, timer);
+  } 
+}
+
+function stopWheel(timer) {
+
+  clearInterval(timer);
+}
+
+function outputResult(angle)
+{
+  // get rid of excessive rotations
+    var degree = angle % (2*Math.PI);
+    var resText = document.getElementById("result");
+    var piece = Math.PI / 6;
+
+    var res = Math.floor(degree / piece) % 2;
+
+    if (res == 0) // black
+ resText.innerHTML = "black";
+    else
+ resText.innerHTML = "red";
+}
+
+function init() {
+    drawWheel();
+}
+
+onload = init;
+
+</script>
+</head>
+<body>
+  <div id="layer">
+   <p id="msg"></p>
+  </div>
+<canvas id="myCanvas" width="500" height="500">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<input type="button" value="Spin" onclick="spinRandom();" style="position: absolute; left:300px; top:500px;" />
+
+
+
+<p>Result: <span id="result">n/a</span></p>
+
+
+
+</body>
+</html>
